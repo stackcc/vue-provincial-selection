@@ -8,24 +8,9 @@
             </div>
         </div>
         <!--选择省市区测试-->
-        <div class="">
-            <div class="item-header c_gray">选择省市区</div>
-            <div class="item-group c_m_b_10 bg_white" @click="addrClick">
-                <div class="item-title c_nowrap">
-                    <!--<span class="c_red">*</span>-->
-                    所在区域
-                </div>
-                <div class="item-content">
-                <span class="item-value c_no_pointer c_nowrap">
-                    {{(province == city ? province + district : province + city + district)||'请选择详细地址'}}
-                    <input type="hidden" placeholder="请选择省" v-model="province">
-                    <input type="hidden" placeholder="请选择市" v-model="city">
-                    <input type="hidden" placeholder="请选择区" v-model="district">
-                </span>
-                    <!-- <span class="item-point">···</span> -->
-                </div>
-            </div>
-            <c-area @saveAddrClick="saveAddrClick" :addrtemp="addr" :province="province" :city="city" :district="district"></c-area>
+        <div class="c_box c_w">
+            <c-area @saveAddrClick="saveAddrClick" :addrtemp="addr" :province="province" :city="city" :district="district">
+            </c-area>
         </div>
     </div>
 </template>
@@ -47,28 +32,7 @@
                 province:'',
                 city:'',
                 district:'',
-                addr: {
-                    chooseType: 'province',
-                    province: '',
-                    city: '',
-                    district: '',
-                    hotList: [
-                        {name: '北京', type: 'district', province: '北京市', city: '北京市', district: ''},
-                        {name: '天津', type: 'district', province: '天津市', city: '天津市', district: ''},
-                        {name: '四川', type: 'city', province: '四川省', city: '', district: ''},
-                        {name: '陕西', type: 'city', province: '陕西省', city: '', district: ''},
-                        {name: '武汉', type: 'district', province: '湖北省', city: '武汉市', district: ''},
-                        {name: '上海', type: 'district', province: '上海市', city: '上海市', district: ''},
-                        {name: '杭州', type: 'district', province: '浙江省', city: '杭州市', district: ''},
-                        {name: '广州', type: 'district', province: '广东省', city: '广州市', district: ''},
-                    ],
-                    chooseList: [],
-                    provinceList: [],
-                    cityList: [],
-                    districtList: [],
-                    // showtoolbar:true,
-                    isShow: false,
-                },
+                addr: {},
             };
         },
         computed: {
@@ -191,14 +155,11 @@
                 //_____
             },
             // 选择省市区
-            addrClick: function () {
-                this.addr.isShow = true;
-            },
             saveAddrClick:function (addr) {
                 this.province = addr.province;
                 this.city = addr.city;
                 this.district = addr.district;
-                this.addr = addr;
+                this.addr = Object.assign({},addr);
             }
 
         },
@@ -212,7 +173,7 @@
         padding: 10px;
         box-sizing: border-box;
     }
-    .item-group {
+    >>>.item-group {
         width: 100%;
         box-sizing: border-box;
         word-wrap: break-word;
@@ -222,10 +183,8 @@
     }
 
     .item-title {
-        width: 35%;
         text-align: left;
         height: 100%;
-
     }
 
     .item-content {
